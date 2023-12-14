@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>해야할 일</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .todo-box {
+        width: 600px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    input[type="checkbox"] {
+        margin-top: 4px;
+    }
+
+    .delete-button {
+        background-color: #ff6347; /* 빨간색 */
+        color: white;
+        border: none;
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .edit-button {
+        background-color: #4caf50; /* 초록색 */
+        color: white;
+        border: none;
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .edit-input {
+        display: none; /* 초기에는 숨김 */
+    }
+  </style>
+</head>
+<body>
+<div class="todo-box">
+  <h2>해야할 일</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>제목</th>
+      <th>할 일</th>
+      <th>완료</th>
+      <th>수정 및 삭제</th> <!-- 수정 및 삭제 버튼을 넣을 열 -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="todo, rowStat : ${todos}">
+      <td>
+        <span th:text="${todo.title}" class="editable" onclick="enableEdit(this)"></span>
+        <input type="text" th:value="${todo.title}" class="edit-input" />
+      </td>
+      <td>
+        <span th:text="${todo.message}" class="editable" onclick="enableEdit(this)"></span>
+        <input type="text" th:value="${todo.message}" class="edit-input" />
+      </td>
+      <td>
+        <input type="checkbox" id="completed" name="completed" th:checked="${todo.completed}" />
+      </td>
+      <td>
+        <!-- 수정 버튼 추가 -->
+        <button class="edit-button" onclick="toggleEdit(${rowStat.index})">수정</button>
+        <!-- 삭제 버튼 추가 -->
+        <button class="delete-button" onclick="deleteTodo(${rowStat.index})">삭제</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

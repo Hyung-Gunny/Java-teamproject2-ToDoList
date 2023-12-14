@@ -1,0 +1,12 @@
+<form action="/todos/update/{id}" method="post" th:object="${todo}">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" th:field="*{title}" />
+
+    <label for="message">Message:</label>
+    <input type="text" id="message" name="message" th:field="*{message}" />
+
+    <label for="completed">Completed:</label>
+    <input type="checkbox" id="completed" name="completed" th:checked="${todo.completed}" />
+
+    <button type="submit">Update</button>
+</form>
